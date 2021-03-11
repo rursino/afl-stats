@@ -9,14 +9,20 @@ season_page = requests.get(season_url)
 season_soup = BeautifulSoup(season_page.content, 'html.parser')
 
 def get_match_stats(stat_url):
-    stat_headings = ['KI', 'MK', 'HB', 'DI', 'GL', 'BH', 'HO', 'TK', 'RB', 'IF', 'CL', 'CG', 'FF', 'FA']
-
     stat_page = requests.get(stat_url)
     stat_soup = BeautifulSoup(stat_page.content, 'html.parser')
 
     teams = stat_soup.title.text.split(' - ')[1].split(' v ')
 
-    stats = [line.text for line in stat_soup.find_all('b')[19:64]]
+    b_tag = stat_soup.find_all('b')
+    for i, line in enumerate(b_tag):
+        if line.text == 'Totals':
+            start_index = i
+            break
+    stats = stat_soup.find_all('b')[i:i+45]
+    stats = [line.text for line in stats]
+
+    stat_headings = ['KI', 'MK', 'HB', 'DI', 'GL', 'BH', 'HO', 'TK', 'RB', 'IF', 'CL', 'CG', 'FF', 'FA']
     home_stats = [int(stat) for stat in stats[1:23]]
     home_stats = dict(zip(stat_headings, home_stats))
     home_stats['PTS'] = home_stats['GL']*6 + home_stats['BH']
