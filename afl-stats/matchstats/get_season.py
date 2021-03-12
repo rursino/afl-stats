@@ -23,19 +23,29 @@ def get_match_stats(stat_url):
     stats = [line.text for line in stats]
 
     stat_headings = ['KI', 'MK', 'HB', 'DI', 'GL', 'BH', 'HO', 'TK', 'RB', 'IF', 'CL', 'CG', 'FF', 'FA']
-    home_stats = [int(stat) for stat in stats[1:23]]
+
+    totals_index = []
+    for i, e in enumerate(stats):
+        if e == "Totals":
+            totals_index.append(i)
+    
+    home_stats = stats[totals_index[0]+1:totals_index[1]]
+    if len(totals_index) == 3:
+        away_stats = stats[totals_index[1]+1:totals_index[2]]
+    else:
+        away_stats = stats[totals_index[1]+1:]
+
+    home_stats = [int(stat) for stat in home_stats]
     home_stats = dict(zip(stat_headings, home_stats))
     home_stats['PTS'] = home_stats['GL']*6 + home_stats['BH']
-    away_stats = [int(stat) for stat in stats[24:]]
+    away_stats = [int(stat) for stat in away_stats]
     away_stats = dict(zip(stat_headings, away_stats))
     away_stats['PTS'] = away_stats['GL']*6 + away_stats['BH']
 
     return {teams[0]: home_stats, teams[1]: away_stats}
-    print(team_stats)
 
 def get_round_matches(result_tag):
     round_matches = []
-
     for match_num, match_result in enumerate(result_tag):
         match_result = match_result.find_all('td')
         if len(match_result) == 8:
