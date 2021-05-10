@@ -1,2 +1,3 @@
-aflstats_venv/
+aflstats-venv/
 .vscode/
+aflstats/matchstats/__pycache__/
