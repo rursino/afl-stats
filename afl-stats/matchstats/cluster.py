@@ -1,10 +1,11 @@
-from get_season import get_season, get_seasons
-
+import pandas as pd
+import numpy as np
 from sklearn import preprocessing, model_selection, svm
 from sklearn.linear_model import LinearRegression
 
-import pandas as pd
-import numpy as np
+from load_data import raw_data
+from get_season import get_season, get_seasons
+
 import json
 import os
 
