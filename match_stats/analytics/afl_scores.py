@@ -5,7 +5,6 @@ from itertools import cycle, islice
 from scipy import stats
 from match_stats.matchstats import MatchStats
 
-
 # Load match stats.
 matchData = MatchStats()
 
