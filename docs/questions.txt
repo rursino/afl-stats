@@ -1,0 +1,3 @@
+Questions/Ideas to answer with AFL team and player statistics:
+
+- Career goals kicked by players over vs. under 195cm (kicked over 200 career goals).
