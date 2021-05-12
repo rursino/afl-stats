@@ -2,18 +2,11 @@ import pandas as pd
 import numpy as np
 from sklearn import preprocessing, model_selection, svm
 from sklearn.linear_model import LinearRegression
-
-from load_data import raw_data
-from get_season import get_season, get_seasons
-
-import json
-import os
+from match_stats.matchstats import MatchStats
 
 
-# Read in raw data.
-CURRENT_PATH = os.path.dirname(__file__)
-fname = os.path.join(CURRENT_PATH, 'data/matchstats.json')
-raw_data = json.load(open(fname, 'r'))
+# Load match stats.
+matchData = MatchStats()
 
 
 # Linear regression model
@@ -42,8 +35,8 @@ def linreg_model(df_train, df_forecast, forecast_col='PTS', test_size=0.2):
     return clf, accuracy, forecast_set, df_train.columns
 
 
-df_train = get_seasons(raw_data, 2000, 2020)
-df_forecast = get_season(raw_data, 2021)
+df_train = matchData.get_seasons(2000, 2020)
+df_forecast = matchData.get_season(2021)
 
 clf, accuracy, forecast_set, columns_used = linreg_model(df_train, df_forecast)
 

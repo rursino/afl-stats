@@ -1,8 +1,17 @@
+"""Scrape seasons of match statistics from AFL Tables.
+Script expects the following cmd line inputs:
+    start_year end_year
+    OR
+    year
+"""
+
 import requests
 from bs4 import BeautifulSoup
 import json
 import sys
+import os
 
+CURRENT_PATH = os.path.dirname(__file__)
 
 out_fname = 'matchstats_'
 if len(sys.argv) == 2:
@@ -89,4 +98,5 @@ for year in years:
     all_results[year] = year_results
 
 
-json.dump(all_results, open(f'data/{out_fname}.json', 'w'))
+fname = os.path.join(CURRENT_PATH, f'raw/{out_fname}.json')
+json.dump(all_results, open(fname, 'w'))

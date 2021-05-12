@@ -1,0 +1,1 @@
+This project involves a package of data mining and analytic tools to learn more about Australia's greatest sporting code: the Australian Football League.
