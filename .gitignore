@@ -3,6 +3,3 @@ build/
 afl_stats.egg-info/
 dist/
 .vscode/
-match_stats/__pycache__/
-player_stats/__pycache__/
-analytics/
